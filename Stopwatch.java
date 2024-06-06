@@ -12,7 +12,7 @@ public class Stopwatch {
     static Boolean isStarted = false;
     static Boolean isPaused = false;
 
-    static Map<String, Long> ticketTime = new HashMap<String, Long>();
+    static Map<String, Double> ticketTime = new HashMap<String, Double>();
 
     public static void main(String[] args) {
         System.out.println("Welcome to Stampy!");
@@ -49,10 +49,15 @@ public class Stopwatch {
     }
 
     private static void finish() {
+        if (!isStarted) {
+            System.out.println("You have not started working on any tickets yet.");
+            return;
+        }
         Instant finishTimestamp = Instant.now();
-        long timeElapsed = Duration.between(currentTimestamp, finishTimestamp).toHours();
+        isStarted = false;
+        Duration duration = Duration.between(currentTimestamp, finishTimestamp);
+        Double timeElapsed = duration.toMinutes() / 60.0;
         ticketTime.put(currTicket, timeElapsed);
-
         System.out.println("You finished working on ticket DevOps#" + currTicket + ". It took you " + timeElapsed + " hours.");
     }
 
@@ -61,7 +66,7 @@ public class Stopwatch {
     }
 
     private static void show() {
-        for (Map.Entry<String, Long> entry : ticketTime.entrySet()) {
+        for (Map.Entry<String, Double> entry : ticketTime.entrySet()) {
             System.out.println("Ticket DevOps#" + entry.getKey() + " took " + entry.getValue() + " hours.");
         }
     }
