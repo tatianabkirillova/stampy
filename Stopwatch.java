@@ -17,8 +17,9 @@ public class Stopwatch {
 
     public static void main(String[] args) {
         System.out.println("Welcome to Stampy!");
-
-        System.out.println("\n't': start working on ticket, \n'f': finish ticket, \n'p': pause,  \n's': show ticket-time, \n'q': quit.");
+        System.out.println("--------------------------------");
+        System.out.println("| 't': start working on ticket |\n| 'f': finish ticket           |\n| 'p': pause                   |\n| 's': show ticket-time        |\n| 'q': quit                    |");
+        System.out.println("--------------------------------");
         command = scanner.nextLine();
 
         while (!command.equalsIgnoreCase("q")) {
