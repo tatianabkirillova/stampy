@@ -9,6 +9,7 @@ public class Stopwatch {
     static String command;
     static String currTicket;
     static Instant currentTimestamp;
+    static Instant pauseTimestamp;
     static Boolean isStarted = false;
     static Boolean isPaused = false;
 
@@ -17,7 +18,7 @@ public class Stopwatch {
     public static void main(String[] args) {
         System.out.println("Welcome to Stampy!");
 
-        System.out.println("\n't': start working on ticket, \n'f': finish ticket, \n'p': start pause,  \n's': show ticket-time, \n'q': quit.");
+        System.out.println("\n't': start working on ticket, \n'f': finish ticket, \n'p': pause,  \n's': show ticket-time, \n'q': quit.");
         command = scanner.nextLine();
 
         while (!command.equalsIgnoreCase("q")) {
@@ -62,6 +63,19 @@ public class Stopwatch {
     }
 
     private static void pause() {
+        if (!isStarted) {
+            System.out.println("You have not started working on any tickets yet.");
+            return;
+        }
+        if (isPaused) {
+            Duration duration = Duration.between(pauseTimestamp, Instant.now());
+            currentTimestamp = currentTimestamp.plus(duration);
+            isPaused = false;
+            System.out.println("Time unpaused.");
+            return;
+        }
+        pauseTimestamp = Instant.now();
+        isPaused = true;
         System.out.println("Time paused.");
     }
 
